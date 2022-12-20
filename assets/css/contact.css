@@ -85,7 +85,7 @@ input, select, textarea {
     padding-top: 10px;
     border: 1px solid white;
     border-radius: 5px;
-    box-shadow: 0 5px 10px #B2B2B2;
+    box-shadow: 0 5px 20px #B2B2B2;
 }
 
 textarea {
