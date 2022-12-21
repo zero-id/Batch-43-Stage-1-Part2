@@ -131,6 +131,15 @@ body {
     border-radius: 20px;
     margin-right: 30px;
 }
+.contact .border:active {
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    padding: 8px 30px;
+    border-radius: 20px;
+    margin-right: 30px;
+    border: 1px solid black;
+}
 
 .contact p {
     font-size: 20px;
