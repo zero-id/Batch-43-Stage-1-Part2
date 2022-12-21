@@ -87,7 +87,7 @@ body {
         flex-wrap: wrap;
     }
 
-  }
+}
 
 #container {
     width: 90%;
@@ -121,6 +121,7 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 70px;
 }
 
 .contact .border {
@@ -131,6 +132,7 @@ body {
     border-radius: 20px;
     margin-right: 30px;
 }
+
 .contact .border:active {
     background-color: white;
     text-decoration: none;
@@ -151,7 +153,7 @@ body {
 }
 
 .sosmed a img {
-    width: 40px;
+    width: 45px;
     margin-right: 20px;
 }
 
