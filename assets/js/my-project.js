@@ -99,9 +99,9 @@ function duration(startDate, endDate) {
     let month = Math.floor(selisih / (1000 * 60 * 60 * 24 * 30))
     
     if (month > 0) {
-        return `Durasi: ${month} Month`
+        return `Durasi: ${month} Bulan`
     } else {
-        return `Durasi: ${day} day`
+        return `Durasi: ${day} Hari`
     }
 }
 
