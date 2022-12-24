@@ -68,7 +68,7 @@ function showData() {
             <img src="${project[i].image}" alt="">
         </div>
         <div class="title-project">
-           <h3><a href="">${project[i].projectName}</a> </h3>
+           <h3><a href="project-detail.html">${project[i].projectName}</a> </h3>
             <p>${duration(project[i].startDate, project[i].endDate)}</p> 
         </div>
         <div class="content"> 
