@@ -78,27 +78,38 @@ body {
     border-radius: 10px;
 }
 
+
+
 form {
-    width: 450px;
+    width: 40%;
     margin: 100px auto;
     padding: 20px;
+    
 }
 
-form div {
-    margin-bottom: 20px ;
+form h1.title {
+    text-align: center;
+    padding-bottom: 50px;
+    font-size: 40px
 }
 
-input, select, textarea {
-    width: 100%;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border: 1px solid white;
+form label {
+    font-weight: 600;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form input, textarea, select {
+    resize: none;
+    border: none;
+    padding: 10px;
+    border: none;
     border-radius: 5px;
     box-shadow: 0 5px 20px #B2B2B2;
-}
-
-textarea {
-    resize: none;
 }
 
 button {
