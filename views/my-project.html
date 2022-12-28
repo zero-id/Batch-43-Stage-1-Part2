@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Project</title>
-    <link rel="stylesheet" href="assets/css/my-project.css" />
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="../public/assets/css/my-project.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
     </style>
@@ -25,14 +25,14 @@
       <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
         <div class="nav-left">
           <ul class="list-unstyled d-flex align-items-center gap-4">
-            <li><img src="assets/img/DW.png" width="50px" alt="" /></li>
+            <li><img src="../public/assets/img/DW.png" width="50px" alt="" /></li>
 
-            <li class="home"><a href="index.html" class="text-decoration-none text-black">Home</a></li>
-            <li><a href="my-project.html" class="text-decoration-none text-black fw-bold">Add Project</a></li>
+            <li class="home"><a href="/home" class="text-decoration-none text-black">Home</a></li>
+            <li><a href="/addMyProject" class="text-decoration-none text-black fw-bold">Add Project</a></li>
           </ul>
         </div>
         <div class="bg-black px-4 py-2 rounded">
-          <a href="contatc-form.html" class="text-decoration-none text-white">Contact Me</a>
+          <a href="/contact" class="text-decoration-none text-white">Contact Me</a>
         </div>
       </nav>
     </section>
@@ -41,25 +41,25 @@
 
     <section>
       <div class="container-fluid" style="margin: 100px auto !important">
-        <form onsubmit="getData(event)" class="w-50 d-flex m-auto flex-column gap-3 mb-5">
+        <form action="/home" method="POST" class="w-50 d-flex m-auto flex-column gap-3 mb-5">
           <h1 class="fw-bold text-center mb-5">ADD MY PROJECT</h1>
           <div class="">
             <label class="fw-semibold form-label" for="project-name">Project Name</label>
-            <input class="form-control p-2 shadow" type="text" id="project-name" />
+            <input name="projectName" class="form-control p-2 shadow" type="text" id="project-name" />
           </div>
           <div class="d-flex gap-3">
             <div class="w-50">
               <label class="fw-semibold form-label" for="start-date">Start Date</label>
-              <input class="p-2 form-control shadow" type="date" id="start-date" />
+              <input class="p-2 form-control shadow" type="date" id="start-date" name="startDate" />
             </div>
             <div class="w-50">
               <label class="fw-semibold form-label" for="end-date">End Date</label>
-              <input class="p-2 form-control shadow" type="date" id="end-date" />
+              <input class="p-2 form-control shadow" type="date" id="end-date" name="endDate" />
             </div>
           </div>
           <div class="">
             <label class="fw-semibold form-label" for="description">Description</label>
-            <textarea style="resize: none" class="shadow form-control p-2" name="" id="description" rows="5"></textarea>
+            <textarea style="resize: none" class="shadow form-control p-2" name="des" id="description" rows="5"></textarea>
           </div>
 
           <div>
@@ -69,21 +69,21 @@
           <div class="d-flex">
             <div class="w-25 d-flex flex-column gap-3">
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="node-js" name="technologies" value="Node Js" />
+                <input class="shadow form-check-input" type="checkbox" id="node-js" name="techno" value="Node Js" />
                 <label class="form-label" for="node-js">Node Js</label>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="react-js" name="technologies" value="React Js" />
+                <input class="shadow form-check-input" type="checkbox" id="react-js" name="techno" value="React Js" />
                 <label class="form-label" for="react-js">React Js</label>
               </div>
             </div>
             <div class="d-flex flex-column gap-3 justify-content-end">
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="next-js" name="technologies" value="Next Js" />
+                <input class="shadow form-check-input" type="checkbox" id="next-js" name="techno" value="Next Js" />
                 <label class="form-label" for="next-js">Next Js</label>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="type-script" name="technologies" value="TypeScript" />
+                <input class="shadow form-check-input" type="checkbox" id="type-script" name="techno" value="TypeScript" />
                 <label class="form-label" for="type-script">TypeScript</label>
               </div>
             </div>
@@ -102,7 +102,7 @@
       </div>
     </section>
 
-    <script src="assets/js/my-project.js"></script>
+    <script src="../public/assets/js/my-project.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </body>
 </html>
