@@ -57,10 +57,10 @@ function getData(event) {
   showData();
 }
 
-//shoeData
+//showData
 
 function showData() {
-  document.getElementById("containerList").innerHTML = ` `;
+  document.getElementById("containerList").innerHTML = ``;
 
   for (let i = 0; i < project.length; i++) {
     document.getElementById("containerList").innerHTML += `

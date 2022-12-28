@@ -1,181 +1,105 @@
 * {
-    margin: 0;
-    padding: 0;
-    
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 body {
-    background-color: #dce0e4;
-    font-family: 'Poppins', sans-serif;
-
+  background-color: #e3e7eb !important;
 }
 
-/* Navigasi */
-
-.nav nav{
-    display: flex;
-    align-items: center;
+nav {
+  background-color: #f4f3f3;
 }
 
-.nav {
-    background-color: #f4f3f3;
-    padding: 10px;
-    box-shadow: 0 0 30px #dbdbdb;
-    padding-left: 5%;
-    padding-right: 5%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-}
+/* .container-project-detail {
 
-.nav ul {
-    display: flex;
-    list-style: none;
-    align-items: center;
-}
-
-.nav ul li {
-    padding-right: 40px;
-}
-
-.nav ul .my-project {
-    font-weight: bold;
-}
-
-.nav ul li img {
-    display: flex;
-    width: 50px;
-    align-items: center;
-}
-
-.nav ul li a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-}
-
-.nav ul li a:active{
-    font-weight: bold;
-}
-
-.nav , .nav-left {
-    flex: 50%;
-}
-
-.nav .nav-right {
-    flex: 50%;
-    text-align: end;
-}
-
-.nav .nav-right a {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    padding: 6px 20px;
-    border-radius: 10px;
-}
-
-.nav .nav-right a:active {
-    text-decoration: none;
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    padding: 6px 20px;
-    border-radius: 10px;
-}
-
-.container-project-detail {
-    /* border: 5px solid red; */
-    width: 1280px ;
-    margin: 100px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  width: 1280px;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .container-project-detail h1 {
-    text-align: center;
-    font-size: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .header-detail-project {
-    display: flex;
-    /* border: 3px solid gold;  */
-    gap: 50px;
-    justify-content: space-between;
+  display: flex;
+ 
+  gap: 50px;
+  justify-content: space-between;
 }
 
 .header-detail-project .item-left {
-    flex: 70%;
-    display: flex;
-    border-radius: 15px;
-    overflow: hidden;
+  flex: 70%;
+  display: flex;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .header-detail-project .item-left img {
-    width: 100%;
+  width: 100%;
 }
 
 .header-detail-project .item-right {
-    flex: 30%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  flex: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .header-detail-project .item-right img.duration {
-    width: 20px;
+  width: 20px;
 }
 
 .header-detail-project .item-right .date {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 }
 
 .duration {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 }
 
 .title {
-    font-weight: 700;
-    font-size: 20px;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .technologies {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
-
 .techno {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .techno img {
-    width: 40px;
+  width: 40px;
 }
 
 .techno img.nextJs {
-    width: 35px;
+  width: 35px;
 }
 
 p.left {
-    margin-right: 50px;
+  margin-right: 50px;
 }
 
 .description-project {
-    font-size: 14px;
-    text-align: justify;
-    line-height: 30px;
-}
-
-
+  font-size: 14px;
+  text-align: justify;
+  line-height: 30px;
+} */
