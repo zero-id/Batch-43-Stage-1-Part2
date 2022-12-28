@@ -1,141 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Project</title>
-    <link rel="stylesheet" href="assets/css/my-project.css">
-    <style> 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'); 
+    <link rel="stylesheet" href="assets/css/my-project.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-
-<!-- Navigasi -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  </head>
+  <body>
+    <!-- Navigasi -->
 
     <section>
-        <div class="nav">
-            <nav>
-                <div class="nav-left">
-                    <ul>
-                        <li><img src="assets/img/DW.png" alt=""></li>
-                        <li class="home"><a href="index.html">Home</a></li>
-                        <li class="my-project"><a href="my-project.html">My Project</a></li>
-                    </ul>
-                </div>
-                <div class="nav-right">
-                    <a href="contatc-form.html">Contact Me</a>
-                </div>
+      <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
+        <div class="nav-left">
+          <ul class="list-unstyled d-flex align-items-center gap-4">
+            <li><img src="assets/img/DW.png" width="50px" alt="" /></li>
 
-            </nav>
-
+            <li class="home"><a href="index.html" class="text-decoration-none text-black">Home</a></li>
+            <li><a href="my-project.html" class="text-decoration-none text-black fw-bold">Add Project</a></li>
+          </ul>
         </div>
+        <div class="bg-black px-4 py-2 rounded">
+          <a href="contatc-form.html" class="text-decoration-none text-white">Contact Me</a>
+        </div>
+      </nav>
     </section>
 
-<!-- Form add project -->
+    <!-- Form add project -->
 
     <section>
-        <div class="container">
-            <form onsubmit="getData(event)">
-                <h1>ADD MY PROJECT</h1>
-                <div class="project">
-                    <label class="title" for="project-name">Project Name</label>
-                    <input  type="text" id="project-name">
-                </div>
-                <div class="project date">
-                    <div class="left">
-                        <label class="title" for="start-date">Start Date</label>
-                        <input type="date" id="start-date">
-                    </div>
-                    <div class="right">
-                        <label class="title" for="end-date">End Date</label>
-                        <input type="date" id="end-date">
-                    </div>
-                </div>
-                <div class="project">
-                    <label class="title" for="description">Description</label>
-                    <textarea name="" id="description" rows="5"></textarea>
-                </div>
-
-                <div>
-                    <label class="title" >Technologies</label>
-                </div>
-                
-                <div class="box">
-                    <div class="satu">
-                        <div>
-                            <input type="checkbox" id="node-js" name="technologies" value="Node Js">
-                            <label for="node-js">Node Js</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="react-js" name="technologies" value="React Js">
-                            <label for="react-js">React Js</label>
-                        </div>
-                    </div>
-                    <div class="dua">
-                        <div>
-                            <input type="checkbox" id="next-js" name="technologies" value="Next Js">
-                            <label for="next-js">Next Js</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="type-script" name="technologies" value="TypeScript">
-                            <label for="type-script">TypeScript</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="img" class="title">Upload Image</label>
-                    <div class="upload">
-                        <input type="file" id="img">
-                    </div>
-                </div>
-                <div class="button">
-                    <button>submit</button>
-                </div>
-                
-            </form>
-        </div>
-    </section>
-
-<!-- List Project -->
-
-    <section>
-        <div class="listProject">
-            <h1 class="title">MY PROJECT</h1>
-            <div id="containerList">
-                <div class="miniProject">
-                    <div class="img">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="">
-                    </div>
-                    <div class="title-project">
-                       <h3><a href="project-detail.html">Dumbways Mobile Apps</a> </h3>
-                        <p>Durasi: 3 bulan</p> 
-                    </div>
-                    <div class="content"> 
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque dolores ab labore sequi, hic accusantium laboriosam amet cum unde magnam, officia quasi eius officiis praesentium ex, omnis perferendis dolorum alias.</p>
-                    </div>
-                    
-                    <div id="icon">
-                        <img src="assets/img/nextJs.png">
-                        <img src="assets/img/nodeJs.png">
-                        <img src="assets/img/reactJs.png">
-                        <img src="assets/img/typeScript.png">
-
-                    </div>
-                    <div class="btn">
-                        <button class="edit">edit</button>
-                        <button class="delet">delet</button>
-                    </div>
-
-                </div>
+      <div class="container-fluid" style="margin: 100px auto !important">
+        <form class="w-50 d-flex m-auto flex-column gap-3 mb-5" onsubmit="getData(event)">
+          <h1 class="fw-bold text-center mb-5">ADD MY PROJECT</h1>
+          <div class="">
+            <label class="fw-semibold form-label" for="project-name">Project Name</label>
+            <input class="form-control p-2 shadow" type="text" id="project-name" />
+          </div>
+          <div class="d-flex gap-3">
+            <div class="w-50">
+              <label class="fw-semibold form-label" for="start-date">Start Date</label>
+              <input class="p-2 form-control shadow" type="date" id="start-date" />
             </div>
-        
-        </div>
-    </section>
-    <script src="assets/js/my-project.js"></script>
+            <div class="w-50">
+              <label class="fw-semibold form-label" for="end-date">End Date</label>
+              <input class="p-2 form-control shadow" type="date" id="end-date" />
+            </div>
+          </div>
+          <div class="">
+            <label class="fw-semibold form-label" for="description">Description</label>
+            <textarea style="resize: none" class="shadow form-control p-2" name="" id="description" rows="5"></textarea>
+          </div>
 
-</body>
+          <div>
+            <label class="fw-semibold form-label">Technologies</label>
+          </div>
+
+          <div class="d-flex">
+            <div class="w-25 d-flex flex-column gap-3">
+              <div class="d-flex align-items-center gap-2">
+                <input class="shadow form-check-input" type="checkbox" id="node-js" name="technologies" value="Node Js" />
+                <label class="form-label" for="node-js">Node Js</label>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <input class="shadow form-check-input" type="checkbox" id="react-js" name="technologies" value="React Js" />
+                <label class="form-label" for="react-js">React Js</label>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-3 justify-content-end">
+              <div class="d-flex align-items-center gap-2">
+                <input class="shadow form-check-input" type="checkbox" id="next-js" name="technologies" value="Next Js" />
+                <label class="form-label" for="next-js">Next Js</label>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <input class="shadow form-check-input" type="checkbox" id="type-script" name="technologies" value="TypeScript" />
+                <label class="form-label" for="type-script">TypeScript</label>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label for="img" class="fw-semibold form-label">Upload Image</label>
+            <div class="upload">
+              <input class="shadow form-control p-2" type="file" id="img" />
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-dark px-3 py-1">submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script src="assets/js/my-project.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
 </html>

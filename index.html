@@ -1,61 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/home.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/home.css" />
     <title>Home</title>
-    <style> 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'); 
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
     </style>
-</head>       
-<body>
-    <div class="nav">
-        <nav>
-            <div class="nav-left">
-                <ul>
-                    <li><img src="assets/img/DW.png" alt=""></li>
-                    <li class="home"><a href="index.html">Home</a></li>
-                    <li><a href="my-project.html">My Project</a></li>
-                </ul>
-            </div>
-            <div class="nav-right">
-                <a href="contatc-form.html">Contact Me</a>
-            </div>
-        </nav>
-    </div>
-    <div id="container">
-        <div id="left">
-            <div class="main">
-                <h1>Hi Welcome to my hut</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In, quisquam eaque. Perferendis, veritatis? Repellendus minus facere dicta nostrum maiores sit quis! Cum veniam odit odio cumque nesciunt, perspiciatis magni quaerat natus reprehenderit error fugit, asperiores, esse ratione. Quia reprehenderit optio voluptas, ut saepe officiis nam omnis, quas, dolorum id ratione aliquid quidem officia cum mollitia voluptatem ea vero repellendus magnam modi porro labore? Laboriosam ab harum distinctio voluptatum quisquam amet neque eligendi vel excepturi, quis adipisci iure optio! Omnis, assumenda quidem ratione provident explicabo soluta inventore saepe, libero amet commodi laudantium ipsum mollitia minima, accusamus officiis. Incidunt quo minus temporibus!
-                </p>
-            </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  </head>
+  <body>
+    <section>
+      <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
+        <div class="nav-left">
+          <ul class="list-unstyled d-flex align-items-center gap-4">
+            <li><img src="assets/img/DW.png" width="50px" alt="" /></li>
 
-            <div class="contact">
-                <a href="https://t.me/abdullatiff_official" target="_blank" class="border">contact</a>
-                <p>download CV</p>
-                <a href="#"><img src="assets/img/icon download.png" alt=""></a>
-            </div>
-                
-            <div class="sosmed">
-                <a href="https://www.linkedin.com/in/abdul-latif-faturahman-4045b7172/" target="_blank"><img src="assets/img/ln.png" alt=""></a>
-                <a href="https://www.instagram.com/abdullatiff_official/" target="_blank"><img src="assets/img/ig.png" alt=""></a>
-                <a href="https://www.facebook.com/cclatief" target="_blank"><img src="assets/img/fb.png" alt=""></a>
-                <a href="https://twitter.com/alfath_official" target="_blank"><img src="assets/img/tw.png" alt=""></a>
-            </div>
+            <li class="home"><a href="index.html" class="text-decoration-none text-black fw-bold">Home</a></li>
+            <li><a href="my-project.html" class="text-decoration-none text-black">Add Project</a></li>
+          </ul>
         </div>
+        <div class="bg-black px-4 py-2 rounded">
+          <a href="contatc-form.html" class="text-decoration-none text-white">Contact Me</a>
+        </div>
+      </nav>
+    </section>
 
-        <div id="right">
-            <div class="profile">
-                <div class="img"></div>
-                <img src="assets/img/levi.jpeg" alt="">
-                <h2> <b>Abdul Latif Faturahman</b> </h2>
+    <section>
+      <div class="container d-flex p-5 rounded-3 gap-5 shadow-lg" style="margin: 100px auto !important">
+        <div class="row">
+          <div class="col-8 d-flex flex-column p-3">
+            <div class="py-5">
+              <h3 class="pb-4 fw-bold">Hi Welcome to my hut</h3>
+              <p style="text-align: justify">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In, quisquam eaque. Perferendis, veritatis? Repellendus minus facere dicta nostrum maiores sit quis! Cum veniam odit odio cumque nesciunt, perspiciatis magni quaerat
+                natus reprehenderit error fugit, asperiores, esse ratione. Quia reprehenderit optio voluptas, ut saepe officiis nam omnis, quas, dolorum id ratione aliquid quidem officia cum mollitia voluptatem ea vero repellendus magnam
+                modi porro labore? Laboriosam ab harum distinctio voluptatum quisquam amet neque eligendi vel excepturi, quis adipisci iure optio! Omnis, assumenda quidem ratione provident explicabo soluta inventore saepe, libero amet
+                commodi laudantium ipsum mollitia minima, accusamus officiis. Incidunt quo minus temporibus!
+              </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-4 mb-5">
+              <a href="https://t.me/abdullatiff_official" target="_blank" class="text-decoration-none text-white bg-black px-4 py-2 rounded-4 me-4">contact</a>
+              <div class="d-flex gap-3">
+                <p class="fs-5">download CV</p>
+                <a href="#"><img width="25" src="assets/img/icon download.png" alt="" /></a>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-4">
+              <a href="https://www.linkedin.com/in/abdul-latif-faturahman-4045b7172/" target="_blank"><img width="45" src="assets/img/ln.png" alt="" /></a>
+              <a href="https://www.instagram.com/abdullatiff_official/" target="_blank"><img src="assets/img/ig.png" width="45" alt="" /></a>
+              <a href="https://www.facebook.com/cclatief" target="_blank"><img src="assets/img/fb.png" width="45" alt="" /></a>
+              <a href="https://twitter.com/alfath_official" target="_blank"><img src="assets/img/tw.png" width="45" alt="" /></a>
+            </div>
+          </div>
+
+          <div class="col d-flex m-auto mx-3 text-center ps-4">
+            <div class="w-100 m-auto rounded-3 overflow-hidden d-flex flex-column shadow-lg">
+              <img src="assets/img/levi.jpeg" width="100%" alt="" />
+              <div class="p-4">
+                <h3><b>A. Latif Faturahman</b></h3>
                 <p>Fullstack Develover</p>
+              </div>
             </div>
+          </div>
         </div>
-    </div> 
-</body>
+      </div>
+    </section>
+
+    <section>
+      <div class="bg-white rounded-4 d-flex flex-column">
+        <h1 class="fs-1 fw-semibold text-center p-5">MY PROJECT</h1>
+        <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start">
+          <div class="w-25 h-75 d-flex flex-column p-3 gap-3 flex-nowarp shadow-lg rounded-3">
+            <div class="">
+              <img class="w-100 h-100 rounded-3" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
+            </div>
+            <div class="">
+              <h5><a href="project-detail.html" class="text-black fw-bold">Dumbways Mobile Apps</a></h5>
+              <p class="fs-6 text-secondary">Durasi: 3 bulan</p>
+            </div>
+            <div style="height: 100px" class="overflow-hidden">
+              <p class="">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque dolores ab labore sequi, hic accusantium laboriosam amet cum unde magnam, officia quasi eius officiis praesentium ex, omnis perferendis dolorum alias.
+              </p>
+            </div>
+
+            <div class="d-flex gap-2 mb-2">
+              <img style="width: 40px" class="" src="assets/img/nextJs.png" />
+              <img style="width: 40px" class="" src="assets/img/nodeJs.png" />
+              <img style="width: 40px" class="" src="assets/img/reactJs.png" />
+              <img style="width: 40px" class="" src="assets/img/typeScript.png" />
+            </div>
+            <div class="d-flex container gap-2">
+              <button class="btn btn-dark w-50">edit</button>
+              <button class="btn btn-dark w-50">delet</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="assets/js/my-project.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
 </html>

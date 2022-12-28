@@ -1,134 +1,68 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 body {
-    background-color: #dce0e4;
-    font-family: 'Poppins', sans-serif;
-
+  background-color: #e3e7eb !important;
 }
 
-.nav nav{
-    display: flex;
-    align-items: center;
+nav {
+  background-color: #f4f3f3;
+  /* box-shadow: 0 0px 15px #525e75 !important; */
 }
 
-.nav {
-    background-color: #f4f3f3;
-    padding: 10px;
-    box-shadow: 0 0 30px #dbdbdb;
-    padding-left: 5%;
-    padding-right: 5%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-}
-
-.nav ul {
-    display: flex;
-    list-style: none;
-    align-items: center;
-}
-
-.nav ul li {
-    padding-right: 40px;
-}
-
-.nav ul li img {
-    display: flex;
-    width: 50px;
-    align-items: center;
-}
-
-.nav ul li a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-}
-
-.nav ul li a:active{
-    font-weight: bold;
-}
-
-.nav , .nav-left {
-    flex: 50%;
-}
-
-.nav .nav-right {
-    flex: 50%;
-    text-align: end;
-}
-
-.nav .nav-right a {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    padding: 6px 20px;
-    border-radius: 10px;
-}
-
-.nav .nav-right a:active {
-    text-decoration: none;
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    padding: 6px 20px;
-    border-radius: 10px;
-}
-
-
-
-form {
-    width: 40%;
-    margin: 100px auto;
-    padding: 20px;
-    
+/* form {
+  width: 40%;
+  margin: 100px auto;
+  padding: 20px;
 }
 
 form h1.title {
-    text-align: center;
-    padding-bottom: 50px;
-    font-size: 40px
+  text-align: center;
+  padding-bottom: 50px;
+  font-size: 40px;
 }
 
 form label {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
-.form input, textarea, select {
-    resize: none;
-    border: none;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 5px 20px #B2B2B2;
+.form input,
+textarea,
+select {
+  resize: none;
+  border: none;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px #b2b2b2;
 }
 
 button {
-    background-color: black;
-    color: white;
-    padding: 5px 25px;
-    border: none;
-    border-radius: 10px;
+  background-color: black;
+  color: white;
+  padding: 5px 25px;
+  border: none;
+  border-radius: 10px;
 }
 
 form .button {
-    display: flex;
-    flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 button:active {
-    background-color: white;
-    color: black;
-    padding: 5px 25px;
-    border: 1px solid black;
-    border-radius: 10px;
-}
+  background-color: white;
+  color: black;
+  padding: 5px 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+} */
