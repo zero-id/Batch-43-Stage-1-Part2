@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{.Data.Title}}</title>
+    <title>{{.Title}}</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -76,31 +76,33 @@
       <div class="bg-white rounded-4 d-flex flex-column">
         <h1 class="fs-1 fw-semibold text-center p-5">MY PROJECT</h1>
         <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start">
+          {{range $index, $data := .Projects}}
           <div class="w-25 h-75 d-flex flex-column p-3 gap-3 flex-nowarp shadow-lg rounded-3">
             <div class="">
               <img class="w-100 h-100 rounded-3" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
             </div>
             <div class="">
-              <h5><a href="/home/1" class="text-black fw-bold">Dumbways Mobile Apps</a></h5>
+              <h5><a href="/home/{{$index}}" class="text-black fw-bold">{{$data.Project_name}}</a></h5>
               <p class="fs-6 text-secondary">Durasi: 3 bulan</p>
             </div>
             <div style="height: 100px" class="overflow-hidden">
               <p class="">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque dolores ab labore sequi, hic accusantium laboriosam amet cum unde magnam, officia quasi eius officiis praesentium ex, omnis perferendis dolorum alias.
+                {{$data.Description}}
               </p>
             </div>
 
             <div class="d-flex gap-2 mb-2">
-              <img style="width: 40px" class="" src="../public/assets/img/nextJs.png" />
-              <img style="width: 40px" class="" src="../public/assets/img/nodeJs.png" />
-              <img style="width: 40px" class="" src="../public/assets/img/reactJs.png" />
-              <img style="width: 40px" class="" src="../public/assets/img/typeScript.png" />
+              {{range $index, $data := $data.Technologies}}
+              <img style="width: 40px" class="" src="../public/assets/img/{{$data}}.png" />
+              {{end}}
             </div>
             <div class="d-flex container gap-2">
               <button class="btn btn-dark w-50">edit</button>
-              <button class="btn btn-dark w-50">delet</button>
+              <a class="btn btn-dark w-50" href="/delet-project/{{$index}}"><button >delete</button></a>
+              
             </div>
           </div>
+          {{end}}
         </div>
       </div>
     </section>

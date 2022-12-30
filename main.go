@@ -14,6 +14,24 @@ var Data = map[string]interface{}{
 	"Title": "Personal Web",
 }
 
+type Project struct {
+	Project_name string
+	Start_date   string
+	End_date     string
+	Description  string
+	Technologies []string
+}
+
+var Projects = []Project{
+	{
+		Project_name: "Dumbways Mobile Apps",
+		Start_date:   "01-09-2022",
+		End_date:     "01-12-2022",
+		Description:  "This is Dumbways Mobile Application",
+		Technologies: []string{"nextJs", "nodeJs", "reactJs", "typeScript"},
+	},
+}
+
 func main() {
 	route := mux.NewRouter()
 
@@ -24,6 +42,7 @@ func main() {
 	route.HandleFunc("/addMyProject", addMyProject).Methods("GET")
 	route.HandleFunc("/home/{id}", projectDetail).Methods("GET")
 	route.HandleFunc("/home", addProject).Methods("POST")
+	route.HandleFunc("/delet-project/{id}", deletProject).Methods("GET")
 	route.HandleFunc("/contact", contacMe).Methods("GET")
 
 	fmt.Println("Server is running on port 5000")
@@ -46,8 +65,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	respData := map[string]interface{}{
+		"Data":     Data,
+		"Projects": Projects,
+	}
+
 	w.WriteHeader(http.StatusOK)
-	tmpl.Execute(w, Data)
+	tmpl.Execute(w, respData)
 }
 
 func addMyProject(w http.ResponseWriter, r *http.Request) {
@@ -91,14 +115,43 @@ func addProject(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Project Name : " + r.PostForm.Get("projectName"))
-	fmt.Println("Start Date : " + r.PostForm.Get("startDate"))
-	fmt.Println("End Date : " + r.PostForm.Get("endDate"))
-	fmt.Println("Description : " + r.PostForm.Get("des"))
-	fmt.Println("Technologies : " + r.PostForm.Get("techno"))
+	project_name := r.PostForm.Get("projectName")
+	start_date := r.PostForm.Get("startDate")
+	end_date := r.PostForm.Get("endDate")
+	description := r.PostForm.Get("des")
+	technologies := r.Form["techno"]
+
+	var newProject = Project{
+		Project_name: project_name,
+		Start_date:   start_date,
+		End_date:     end_date,
+		Description:  description,
+		Technologies: technologies,
+	}
+
+	Projects = append(Projects, newProject) // memasukan data newProject ke Projects
+
+	fmt.Println(Projects)
+
+	// fmt.Println("Project_name : " + r.PostForm.Get("projectName"))
+	// fmt.Println("Start_date : " + r.PostForm.Get("startDate"))
+	// fmt.Println("End_date : " + r.PostForm.Get("endDate"))
+	// fmt.Println("Description : " + r.PostForm.Get("des"))
+	// fmt.Println("Technologies : ", r.Form["techno"])
 
 	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
 
+}
+
+func deletProject(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+
+	Projects = append(Projects[:id], Projects[id+1:]...)
+
+	fmt.Println(id)
+	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
 }
 
 func contacMe(w http.ResponseWriter, r *http.Request) {
