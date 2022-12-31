@@ -30,25 +30,44 @@
 
     <section>
       <div class="container d-flex flex-column gap-5" style="margin: 100px auto !important">
-        <h1 class="text-center fw-bold">Dumbways Mobile Apps</h1>
+        <h1 class="text-center fw-bold">{{.ProjectDetail.Project_name}}</h1>
         <div class="d-flex gap-5">
           <div class="">
             <img class="w-100" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
           </div>
 
           <div class="d-flex flex-column gap-4 w-25">
-            <p class="fw-semibold">Duration || ID : {{.Id}}</p>
+            <p class="fw-semibold">Duration</p>
             <div class="d-flex align-items-center gap-3">
               <img width="40px" class="duration" src="https://cdn.pixabay.com/photo/2019/02/26/09/19/calender-4021509_640.png" alt="" />
-              <p>12 Jan 2021 - 11 Feb 2021</p>
+              <p>{{.ProjectDetail.Start_date}} - {{.ProjectDetail.End_date}}</p>
             </div>
             <div class="d-flex align-items-center gap-3 mb-5">
               <img width="40px" class="" src="https://www.pngarts.com/files/10/Vector-Clock-PNG-Free-Download.png" alt="" />
-              <p>1 Month</p>
+              <p>{{.ProjectDetail.Duration}}</p>
             </div>
 
-            <p class="">Technologies</p>
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex flex-column gap-4">
+              <p class="">Technologies</p>
+              <div class="d-flex flex-warp gap-4">
+                {{range $index, $data := .ProjectDetail.Technologies}}
+                <div class="d-flex align-items-center gap-3">
+                  <img width="40px" src="../public/assets/img/{{$data}}.png" alt=""/>
+                  {{if eq $data "nodeJs"}}
+                  <p>Node Js</p>
+                  {{else if eq $data "reactJs"}}
+                  <p>React Js</p>
+                  {{else if eq $data "nextJs"}}
+                  <p>Next Js</p>
+                  {{else}}
+                  <p>TypeScript</p>
+                  {{end}}
+                </div>
+                {{end}}
+              </div>
+            </div>
+            
+            <!-- <div class="d-flex align-items-center gap-2">
               <img width="40px" src="../public/assets/img/reactJs.png" alt="" />
               <p class="left pe-4">React Js</p>
               <img width="35px" class="nextJs" src="https://static-00.iconduck.com/assets.00/next-js-icon-512x512-zuauazrk.png" alt="" />
@@ -59,42 +78,15 @@
               <p class="left pe-4">Node Js</p>
               <img width="40px" src="../public/assets/img/typeScript.png" alt="" />
               <p>TypeScript</p>
-            </div>
+            </div> -->
           </div>
         </div>
 
         <div class="fs-6 lh-base" style="text-align: justify">
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates molestiae magni exercitationem, ipsum maxime quasi architecto omnis, nesciunt officia harum recusandae alias dolore? Magnam enim odit architecto dolore, est
-            rerum, quisquam eaque placeat consequuntur officia vel ut reprehenderit minima exercitationem cupiditate! Voluptatum laborum exercitationem doloremque unde magnam, consequatur repellendus dolor veritatis animi iure sit
-            consequuntur quisquam alias nesciunt? Quisquam velit, sed earum eum nesciunt, cumque tempora reiciendis architecto dolor neque eligendi? Nulla repellendus reprehenderit, quibusdam quidem doloribus excepturi quas rem maiores,
-            libero voluptatum iste optio autem nesciunt eos asperiores dolore pariatur! Eius tempora vitae doloribus nostrum exercitationem vel quo recusandae?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium accusantium necessitatibus sit alias, rem nihil perferendis, magni minima aliquam, ratione nostrum voluptatibus porro hic sint at dolorum exercitationem error
-            dignissimos explicabo beatae illo molestiae! Perferendis ipsum adipisci aut fugiat ducimus, possimus quaerat itaque, tempora voluptatum, omnis iusto delectus facilis asperiores maiores? Dolorem nobis dolorum consequuntur
-            provident quod ducimus sapiente facere facilis ipsam. Animi officia reprehenderit, dolores similique nulla iste laudantium ex temporibus atque a iure, modi nostrum, dolorum dicta sapiente ducimus assumenda ullam earum tempora
-            tenetur laborum aut? Accusantium, recusandae quaerat, minus nam quam eos, fugiat doloribus impedit placeat ipsum eligendi ratione harum voluptas labore minima deserunt architecto ex sint illum sed earum exercitationem assumenda
-            nobis. Delectus laboriosam totam ratione veritatis dolorem molestias qui maiores tempore iusto, cumque quisquam magni officia. Odio pariatur quas illum rerum amet unde natus, similique suscipit nisi quae mollitia voluptates
-            ratione eius quaerat, optio, beatae deleniti accusantium sit facere tempora excepturi dignissimos! Ipsam quasi assumenda modi atque officia consequatur fugit nemo rerum magni molestias tempora, saepe ratione minima suscipit
-            quaerat accusantium expedita, sunt aperiam. Ducimus neque obcaecati explicabo laboriosam ad. Doloribus repellat explicabo sunt modi, autem nobis blanditiis labore, officiis sed quisquam dolor ut voluptatum quibusdam deleniti
-            tempora. Repellat reiciendis consequuntur aspernatur earum tempore doloribus nostrum nulla cumque. Cumque quas accusantium dicta ipsa assumenda. Iusto molestiae dolor eligendi aliquam aspernatur, nobis atque architecto qui?
-            Voluptate vero voluptatem, voluptates eum soluta magni et corporis mollitia nihil vel ratione, itaque eveniet commodi minus cupiditate minima non debitis? Rem fugit, asperiores repudiandae repellendus expedita distinctio,
-            consequuntur quibusdam nemo delectus aliquid beatae. Nisi eum est nostrum dolor adipisci amet nihil eveniet minus consequatur magnam ullam maxime expedita sequi, vitae voluptates consectetur necessitatibus in cum fugit rerum
-            deleniti ad. Sit unde, quod repudiandae omnis architecto eaque perferendis fugit. Dolores, molestiae.
-          </p>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet iure maiores minima, illo eum rerum inventore nesciunt ea consectetur dolor corrupti magnam excepturi dolore nam deleniti quibusdam necessitatibus. Assumenda
-            ipsum eius amet iure laudantium itaque tempore veritatis omnis unde ipsa, pariatur consectetur voluptate doloremque culpa possimus corrupti dignissimos odio aliquam vitae adipisci. Incidunt, perspiciatis minima itaque eius
-            blanditiis necessitatibus exercitationem voluptatibus eveniet est a iusto, dicta, veniam quibusdam laudantium odio eligendi. Est nemo facilis provident laboriosam sit veritatis libero voluptates error ullam pariatur, adipisci
-            accusamus atque animi obcaecati dolorem ab cum quas quis consequatur eveniet cupiditate fugiat odio? Ad, culpa quibusdam. Tempora tenetur culpa possimus sunt mollitia doloribus nesciunt excepturi, distinctio aliquid voluptates
-            quasi! Commodi culpa distinctio quos, eligendi explicabo impedit nobis dolores nam modi adipisci aut sint atque ut provident vel porro, obcaecati quisquam corporis ex consectetur alias. Cum perspiciatis suscipit similique
-            laudantium repellat ipsam aperiam velit nostrum distinctio.
-          </p>
+          <p>{{.ProjectDetail.Description}}</p>
         </div>
       </div>
     </section>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </body>
 </html>
