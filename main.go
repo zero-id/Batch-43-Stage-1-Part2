@@ -1,9 +1,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"log"
 	"net/http"
+	"personal-web/connection"
 	"strconv"
 	"text/template"
 	"time"
@@ -18,11 +19,12 @@ var Data = map[string]interface{}{
 type Project struct {
 	Id           int
 	Project_name string
-	Start_date   string
-	End_date     string
+	Start_date   time.Time
+	End_date     time.Time
 	Description  string
 	Technologies []string
 	Duration     string
+	// Image string
 }
 
 var Projects = []Project{
@@ -38,26 +40,28 @@ var Projects = []Project{
 func main() {
 	route := mux.NewRouter()
 
+	connection.DatabaseConnection()
+
 	route.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("./public")))) // /public
 
-	route.HandleFunc("/", helloWorld).Methods("GET")
+	// route.HandleFunc("/", helloWorld).Methods("GET")
 	route.HandleFunc("/home", home).Methods("GET").Name("home")
-	route.HandleFunc("/addMyProject", addMyProject).Methods("GET")
-	route.HandleFunc("/project-detail/{id}", projectDetail).Methods("GET")
-	route.HandleFunc("/home", addProject).Methods("POST")
-	route.HandleFunc("/edit-project/{id}", editProject).Methods("GET")
-	route.HandleFunc("/edit-project-input/{id}", editProjectInput).Methods("POST")
-	route.HandleFunc("/delet-project/{id}", deletProject).Methods("GET")
-	route.HandleFunc("/contact", contacMe).Methods("GET")
+	// route.HandleFunc("/addMyProject", addMyProject).Methods("GET")
+	// route.HandleFunc("/project-detail/{id}", projectDetail).Methods("GET")
+	// route.HandleFunc("/home", addProject).Methods("POST")
+	// route.HandleFunc("/edit-project/{id}", editProject).Methods("GET")
+	// route.HandleFunc("/edit-project-input/{id}", editProjectInput).Methods("POST")
+	// route.HandleFunc("/delet-project/{id}", deletProject).Methods("GET")
+	// route.HandleFunc("/contact", contacMe).Methods("GET")
 	fmt.Println("Server is running on port 5000")
-	http.ListenAndServe("localhost:5000", route)
+	http.ListenAndServe("localhost:8080", route)
 }
 
-func helloWorld(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello world!"))
-}
+// func helloWorld(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.WriteHeader(http.StatusOK)
+// 	w.Write([]byte("Hello world!"))
+// }
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -69,243 +73,292 @@ func home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	rows, _ := connection.Conn.Query(context.Background(), "SELECT * FROM tb_project")
+
+	var result []Project
+	for rows.Next() { //next dari pgx dan berfunsi untuk dia akan membaca apa dari connection ketika sudah berhasil menjalankan query, berarti next akan membaca valuenya yang di kirimkan database
+		var each = Project{}
+
+		var err = rows.Scan(&each.Id, &each.Project_name, &each.Start_date, &each.End_date, &each.Description, &each.Technologies)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		each.Duration = selisih(each.Start_date, each.End_date)
+
+		result = append(result, each)
+	}
+
+
+
+	fmt.Println(result)
+
 	respData := map[string]interface{}{
 		"Data":     Data,
-		"Projects": Projects,
+		"Projects": result,
 	}
 
 	w.WriteHeader(http.StatusOK)
 	tmpl.Execute(w, respData)
 }
 
-func addMyProject(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	var tmpl, err = template.ParseFiles("views/my-project.html")
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("message : " + err.Error()))
-		return
-	}
+func selisih(start time.Time, end time.Time ) string {
+	selisihDate := end.Sub(start)
 
-	w.WriteHeader(http.StatusOK)
-	tmpl.Execute(w, Data)
-}
-
-func projectDetail(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
-	var tmpl, err = template.ParseFiles("views/project-detail.html")
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("message : " + err.Error()))
-		return
-	}
-
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
-
-	ProjectDetail := Project{}
-
-	for index, data := range Projects {
-		if index == id {
-			newStartDate, _ := time.Parse("2006-01-02", data.Start_date)
-			newEndDate, _ := time.Parse("2006-01-02", data.End_date)
-
-			ProjectDetail = Project{
-				Id:           id,
-				Project_name: data.Project_name,
-				Start_date:   newStartDate.Format("02 Jan 2006"),
-				End_date:     newEndDate.Format("02 Jan 2006"),
-				Description:  data.Description,
-				Technologies: data.Technologies,
-				Duration:     data.Duration,
-			}
-		}
-	}
-
-	resp := map[string]interface{}{
-		"Data":          Data,
-		"ProjectDetail": ProjectDetail,
-	}
-
-	w.WriteHeader(http.StatusOK)
-	tmpl.Execute(w, resp)
-}
-
-func addProject(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	project_name := r.PostForm.Get("projectName")
-	start_date := r.PostForm.Get("startDate")
-	end_date := r.PostForm.Get("endDate")
-	description := r.PostForm.Get("des")
-	technologies := r.Form["techno"]
-
-	// Menghitung Durasi
-	startDateTime, _ := time.Parse("2006-01-02", start_date)
-	endDateTime, _ := time.Parse("2006-01-02", end_date)
-
-	selisihDate := endDateTime.Sub(startDateTime)
-
-	var duration string
-	year := int(selisihDate.Hours() / (12 * 30 * 24))
-	if year != 0 {
-		duration = strconv.Itoa(year) + " tahun"
-	} else {
-		month := int(selisihDate.Hours() / (30 * 24))
-		if month != 0 {
-			duration = strconv.Itoa(month) + " bulan"
+		var duration string
+		year := int(selisihDate.Hours() / (12 * 30 * 24))
+		if year != 0 {
+			duration = strconv.Itoa(year) + " tahun"
 		} else {
-			week := int(selisihDate.Hours() / (7 * 24))
-			if week != 0 {
-				duration = strconv.Itoa(week) + " minggu"
+			month := int(selisihDate.Hours() / (30 * 24))
+			if month != 0 {
+				duration = strconv.Itoa(month) + " bulan"
 			} else {
-				day := int(selisihDate.Hours() / (24))
-				if day != 0 {
-					duration = strconv.Itoa(day) + " hari"
+				week := int(selisihDate.Hours() / (7 * 24))
+				if week != 0 {
+					duration = strconv.Itoa(week) + " minggu"
+				} else {
+					day := int(selisihDate.Hours() / (24))
+					if day != 0 {
+						duration = strconv.Itoa(day) + " hari"
+					}
 				}
 			}
 		}
-	}
 
-	var newProject = Project{
-		Project_name: project_name,
-		Start_date:   start_date,
-		End_date:     end_date,
-		Description:  description,
-		Technologies: technologies,
-		Duration:     duration,
-	}
 
-	Projects = append(Projects, newProject) // memasukan data newProject ke Projects
+		return duration 
+} 
 
-	fmt.Println(Projects)
+// func addMyProject(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	// fmt.Println("Project_name : " + r.PostForm.Get("projectName"))
-	// fmt.Println("Start_date : " + r.PostForm.Get("startDate"))
-	// fmt.Println("End_date : " + r.PostForm.Get("endDate"))
-	// fmt.Println("Description : " + r.PostForm.Get("des"))
-	// fmt.Println("Technologies : ", r.Form["techno"])
+// 	var tmpl, err = template.ParseFiles("views/my-project.html")
+// 	if err != nil {
+// 		w.WriteHeader(http.StatusInternalServerError)
+// 		w.Write([]byte("message : " + err.Error()))
+// 		return
+// 	}
 
-	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
+// 	w.WriteHeader(http.StatusOK)
+// 	tmpl.Execute(w, Data)
+// }
 
-}
+// func projectDetail(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-func deletProject(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+// 	var tmpl, err = template.ParseFiles("views/project-detail.html")
+// 	if err != nil {
+// 		w.WriteHeader(http.StatusInternalServerError)
+// 		w.Write([]byte("message : " + err.Error()))
+// 		return
+// 	}
 
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+// 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
-	Projects = append(Projects[:id], Projects[id+1:]...)
+// 	ProjectDetail := Project{}
 
-	fmt.Println(id)
-	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
-}
+// 	for index, data := range Projects {
+// 		if index == id {
+// 			newStartDate, _ := time.Parse("2006-01-02", data.Start_date)
+// 			newEndDate, _ := time.Parse("2006-01-02", data.End_date)
 
-func editProject(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+// 			ProjectDetail = Project{
+// 				Id:           id,
+// 				Project_name: data.Project_name,
+// 				Start_date:   newStartDate.Format("02 Jan 2006"),
+// 				End_date:     newEndDate.Format("02 Jan 2006"),
+// 				Description:  data.Description,
+// 				Technologies: data.Technologies,
+// 				Duration:     data.Duration,
+// 			}
+// 		}
+// 	}
 
-	var tmpl, err = template.ParseFiles("views/edit-project.html")
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("message : " + err.Error()))
-		return
-	}
+// 	resp := map[string]interface{}{
+// 		"Data":          Data,
+// 		"ProjectDetail": ProjectDetail,
+// 	}
 
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+// 	w.WriteHeader(http.StatusOK)
+// 	tmpl.Execute(w, resp)
+// }
 
-	ProjectDetail := Project{}
+// func addProject(w http.ResponseWriter, r *http.Request) {
+// 	err := r.ParseForm()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	for index, data := range Projects {
-		if index == id {
-			ProjectDetail = Project{
-				Id:           id,
-				Project_name: data.Project_name,
-				Start_date:   data.Start_date,
-				End_date:     data.End_date,
-				Description:  data.Description,
-				Technologies: data.Technologies,
-				Duration:     data.Duration,
-			}
-		}
-	}
+// 	project_name := r.PostForm.Get("projectName")
+// 	start_date := r.PostForm.Get("startDate")
+// 	end_date := r.PostForm.Get("endDate")
+// 	description := r.PostForm.Get("des")
+// 	technologies := r.Form["techno"]
 
-	resp := map[string]interface{}{
-		"Data":          Data,
-		"ProjectDetail": ProjectDetail,
-	}
+// 	// Menghitung Durasi
+// 	startDateTime, _ := time.Parse("2006-01-02", start_date)
+// 	endDateTime, _ := time.Parse("2006-01-02", end_date)
 
-	w.WriteHeader(http.StatusOK)
-	tmpl.Execute(w, resp)
-}
+// 	selisihDate := endDateTime.Sub(startDateTime)
 
-func editProjectInput(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	var duration string
+// 	year := int(selisihDate.Hours() / (12 * 30 * 24))
+// 	if year != 0 {
+// 		duration = strconv.Itoa(year) + " tahun"
+// 	} else {
+// 		month := int(selisihDate.Hours() / (30 * 24))
+// 		if month != 0 {
+// 			duration = strconv.Itoa(month) + " bulan"
+// 		} else {
+// 			week := int(selisihDate.Hours() / (7 * 24))
+// 			if week != 0 {
+// 				duration = strconv.Itoa(week) + " minggu"
+// 			} else {
+// 				day := int(selisihDate.Hours() / (24))
+// 				if day != 0 {
+// 					duration = strconv.Itoa(day) + " hari"
+// 				}
+// 			}
+// 		}
+// 	}
 
-	project_name := r.PostForm.Get("projectName")
-	start_date := r.PostForm.Get("startDate")
-	end_date := r.PostForm.Get("endDate")
-	description := r.PostForm.Get("des")
-	technologies := r.Form["techno"]
+// 	var newProject = Project{
+// 		Project_name: project_name,
+// 		Start_date:   start_date,
+// 		End_date:     end_date,
+// 		Description:  description,
+// 		Technologies: technologies,
+// 		Duration:     duration,
+// 	}
 
-	// Menghitung Durasi
-	startDateTime, _ := time.Parse("2006-01-02", start_date)
-	endDateTime, _ := time.Parse("2006-01-02", end_date)
+// 	Projects = append(Projects, newProject) // memasukan data newProject ke Projects
 
-	selisihDate := endDateTime.Sub(startDateTime)
+// 	fmt.Println(Projects)
 
-	var duration string
-	year := int(selisihDate.Hours() / (12 * 30 * 24))
-	if year != 0 {
-		duration = strconv.Itoa(year) + " tahun"
-	} else {
-		month := int(selisihDate.Hours() / (30 * 24))
-		if month != 0 {
-			duration = strconv.Itoa(month) + " bulan"
-		} else {
-			week := int(selisihDate.Hours() / (7 * 24))
-			if week != 0 {
-				duration = strconv.Itoa(week) + " minggu"
-			} else {
-				day := int(selisihDate.Hours() / (24))
-				if day != 0 {
-					duration = strconv.Itoa(day) + " hari"
-				}
-			}
-		}
-	}
+// 	// fmt.Println("Project_name : " + r.PostForm.Get("projectName"))
+// 	// fmt.Println("Start_date : " + r.PostForm.Get("startDate"))
+// 	// fmt.Println("End_date : " + r.PostForm.Get("endDate"))
+// 	// fmt.Println("Description : " + r.PostForm.Get("des"))
+// 	// fmt.Println("Technologies : ", r.Form["techno"])
 
-	var newProject = Project{
-		Project_name: project_name,
-		Start_date:   start_date,
-		End_date:     end_date,
-		Description:  description,
-		Technologies: technologies,
-		Duration:     duration,
-	}
+// 	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
 
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+// }
 
-	Projects[id] = newProject
+// func deletProject(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
-}
+// 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
-func contacMe(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Contact-Type", "text/html; charset=utf-8")
-	var tmpl, err = template.ParseFiles("views/contatc-form.html")
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("message : " + err.Error()))
-		return
-	}
+// 	Projects = append(Projects[:id], Projects[id+1:]...)
 
-	w.WriteHeader(http.StatusOK)
-	tmpl.Execute(w, Data)
-}
+// 	fmt.Println(id)
+// 	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
+// }
+
+// func editProject(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+// 	var tmpl, err = template.ParseFiles("views/edit-project.html")
+// 	if err != nil {
+// 		w.WriteHeader(http.StatusInternalServerError)
+// 		w.Write([]byte("message : " + err.Error()))
+// 		return
+// 	}
+
+// 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+
+// 	ProjectDetail := Project{}
+
+// 	for index, data := range Projects {
+// 		if index == id {
+// 			ProjectDetail = Project{
+// 				Id:           id,
+// 				Project_name: data.Project_name,
+// 				Start_date:   data.Start_date,
+// 				End_date:     data.End_date,
+// 				Description:  data.Description,
+// 				Technologies: data.Technologies,
+// 				Duration:     data.Duration,
+// 			}
+// 		}
+// 	}
+
+// 	resp := map[string]interface{}{
+// 		"Data":          Data,
+// 		"ProjectDetail": ProjectDetail,
+// 	}
+
+// 	w.WriteHeader(http.StatusOK)
+// 	tmpl.Execute(w, resp)
+// }
+
+// func editProjectInput(w http.ResponseWriter, r *http.Request) {
+// 	err := r.ParseForm()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	project_name := r.PostForm.Get("projectName")
+// 	start_date := r.PostForm.Get("startDate")
+// 	end_date := r.PostForm.Get("endDate")
+// 	description := r.PostForm.Get("des")
+// 	technologies := r.Form["techno"]
+
+// 	// Menghitung Durasi
+// 	startDateTime, _ := time.Parse("2006-01-02", start_date)
+// 	endDateTime, _ := time.Parse("2006-01-02", end_date)
+
+// 	selisihDate := endDateTime.Sub(startDateTime)
+
+// 	var duration string
+// 	year := int(selisihDate.Hours() / (12 * 30 * 24))
+// 	if year != 0 {
+// 		duration = strconv.Itoa(year) + " tahun"
+// 	} else {
+// 		month := int(selisihDate.Hours() / (30 * 24))
+// 		if month != 0 {
+// 			duration = strconv.Itoa(month) + " bulan"
+// 		} else {
+// 			week := int(selisihDate.Hours() / (7 * 24))
+// 			if week != 0 {
+// 				duration = strconv.Itoa(week) + " minggu"
+// 			} else {
+// 				day := int(selisihDate.Hours() / (24))
+// 				if day != 0 {
+// 					duration = strconv.Itoa(day) + " hari"
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	var newProject = Project{
+// 		Project_name: project_name,
+// 		Start_date:   start_date,
+// 		End_date:     end_date,
+// 		Description:  description,
+// 		Technologies: technologies,
+// 		Duration:     duration,
+// 	}
+
+// 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+
+// 	Projects[id] = newProject
+
+// 	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
+// }
+
+// func contacMe(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Contact-Type", "text/html; charset=utf-8")
+// 	var tmpl, err = template.ParseFiles("views/contatc-form.html")
+// 	if err != nil {
+// 		w.WriteHeader(http.StatusInternalServerError)
+// 		w.Write([]byte("message : " + err.Error()))
+// 		return
+// 	}
+
+// 	w.WriteHeader(http.StatusOK)
+// 	tmpl.Execute(w, Data)
+// }
