@@ -31,28 +31,32 @@
     <section>
       <div class="container d-flex flex-column gap-5" style="margin: 100px auto !important">
         <h1 class="text-center fw-bold">{{.ProjectDetail.Project_name}}</h1>
-        <div class="d-flex gap-5">
-          <div class="">
+        <div class="row justify-content-between">
+          <div class="col-8">
             <img class="w-100" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
           </div>
 
-          <div class="d-flex flex-column gap-4 w-25">
-            <p class="fw-semibold">Duration</p>
-            <div class="d-flex align-items-center gap-3">
-              <img width="40px" class="duration" src="https://cdn.pixabay.com/photo/2019/02/26/09/19/calender-4021509_640.png" alt="" />
-              <p>{{.ProjectDetail.Start_date}} - {{.ProjectDetail.End_date}}</p>
-            </div>
-            <div class="d-flex align-items-center gap-3 mb-5">
-              <img width="40px" class="" src="https://www.pngarts.com/files/10/Vector-Clock-PNG-Free-Download.png" alt="" />
-              <p>{{.ProjectDetail.Duration}}</p>
+          <div class="col-3 d-flex flex-column flex-warp">
+            <div class="d-flex flex-column gap-4">
+              <p class="fw-semibold">Duration</p>
+              <div class="d-flex flex-column gap-4">
+                <div class="d-flex align-items-center gap-3">
+                  <img width="40px" class="duration" src="https://cdn.pixabay.com/photo/2019/02/26/09/19/calender-4021509_640.png" alt="" />
+                  <p>{{.ProjectDetail.Start_date.Format "02 Jan 2006"}} - {{.ProjectDetail.End_date.Format "02 Jan 2006"}}</p>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-5">
+                  <img width="40px" class="" src="https://www.pngarts.com/files/10/Vector-Clock-PNG-Free-Download.png" alt="" />
+                  <p>{{.ProjectDetail.Duration}}</p>
+                </div>
+              </div>
             </div>
 
-            <div class="d-flex flex-column gap-4">
-              <p class="">Technologies</p>
-              <div class="d-flex flex-warp gap-4">
+            <div class="d-flex flex-column gap-4 flex-warp">
+              <p class="fw-semibold">Technologies</p>
+              <div class="d-flex gap-3" style="flex-wrap: wrap !important">
                 {{range $index, $data := .ProjectDetail.Technologies}}
-                <div class="d-flex align-items-center gap-3">
-                  <img width="40px" src="../public/assets/img/{{$data}}.png" alt=""/>
+                <div class="d-flex align-items-center gap-3 w-50">
+                  <img width="40px" src="../public/assets/img/{{$data}}.png" alt="" />
                   {{if eq $data "nodeJs"}}
                   <p>Node Js</p>
                   {{else if eq $data "reactJs"}}
@@ -66,19 +70,6 @@
                 {{end}}
               </div>
             </div>
-            
-            <!-- <div class="d-flex align-items-center gap-2">
-              <img width="40px" src="../public/assets/img/reactJs.png" alt="" />
-              <p class="left pe-4">React Js</p>
-              <img width="35px" class="nextJs" src="https://static-00.iconduck.com/assets.00/next-js-icon-512x512-zuauazrk.png" alt="" />
-              <p>Next Js</p>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-              <img width="40px" src="../public/assets/img/nodeJs.png" alt="" />
-              <p class="left pe-4">Node Js</p>
-              <img width="40px" src="../public/assets/img/typeScript.png" alt="" />
-              <p>TypeScript</p>
-            </div> -->
           </div>
         </div>
 

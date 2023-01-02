@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../public/assets/css/home.css" />
-    
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
     </style>
@@ -75,20 +75,18 @@
     <section>
       <div class="bg-white rounded-4 d-flex flex-column">
         <h1 class="fs-1 fw-semibold text-center p-5">MY PROJECT</h1>
-        <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start">
+        <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start gap-2">
           {{range $index, $data := .Projects}}
           <div class="w-25 h-75 d-flex flex-column p-3 gap-3 flex-nowarp shadow-lg rounded-3">
             <div class="">
               <img class="w-100 h-100 rounded-3" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
             </div>
             <div class="">
-              <h5><a href="/project-detail/{{$index}}" class="text-black fw-bold">{{$data.Project_name}}</a></h5>
+              <h5><a href="/project-detail/{{$data.Id}}" class="text-black fw-bold">{{$data.Project_name}}</a></h5>
               <p class="fs-6 text-secondary">Durasi: {{$data.Duration}}</p>
             </div>
             <div style="height: 100px" class="overflow-hidden">
-              <p class="">
-                {{$data.Description}}
-              </p>
+              <p class="">{{$data.Description}}</p>
             </div>
 
             <div class="d-flex gap-2 mb-2">
@@ -97,9 +95,8 @@
               {{end}}
             </div>
             <div class="d-flex container gap-2">
-            <a class="text-decoration-none text-white btn btn-dark w-50" href="/edit-project/{{$index}}">edit</a>
-            <a class="btn btn-dark w-50 text-decoration-none text-white " href="/delet-project/{{$index}}">delete</a>
-              
+              <a class="text-decoration-none text-white btn btn-dark w-50" href="/edit-project/{{$data.Id}}">edit</a>
+              <a class="btn btn-dark w-50 text-decoration-none text-white" href="/delet-project/{{$data.Id}}">delete</a>
             </div>
           </div>
           {{end}}

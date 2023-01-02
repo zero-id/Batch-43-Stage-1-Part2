@@ -50,11 +50,11 @@
           <div class="d-flex gap-3">
             <div class="w-50">
               <label class="fw-semibold form-label" for="start-date">Start Date</label>
-              <input class="p-2 form-control shadow" type="date" id="start-date" name="startDate" value="{{.ProjectDetail.Start_date}}" />
+              <input class="p-2 form-control shadow" type="date" id="start-date" name="startDate" value="{{.ProjectDetail.Start_date.Format "2006-01-02"}}" />
             </div>
             <div class="w-50">
               <label class="fw-semibold form-label" for="end-date">End Date</label>
-              <input class="p-2 form-control shadow" type="date" id="end-date" name="endDate" value="{{.ProjectDetail.End_date}}" />
+              <input class="p-2 form-control shadow" type="date" id="end-date" name="endDate" value="{{.ProjectDetail.End_date.Format "2006-01-02"}}" />
             </div>
           </div>
           <div class="">
@@ -69,21 +69,21 @@
           <div class="d-flex">
             <div class="w-25 d-flex flex-column gap-3">
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="node-js" name="techno" value="nodeJs" />
+                <input class="shadow form-check-input" type="checkbox" id="node-js" name="techno" value="nodeJs" {{ range $index, $data := .ProjectDetail.Technologies }}{{ if (eq $data "nodeJs" ) }} checked {{end}}{{end}}/>
                 <label class="form-label" for="node-js">Node Js</label>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="react-js" name="techno" value="reactJs" />
+                <input class="shadow form-check-input" type="checkbox" id="react-js" name="techno" value="reactJs" {{ range $index, $data := .ProjectDetail.Technologies }}{{ if (eq $data "reactJs" ) }} checked {{end}}{{end}} />
                 <label class="form-label" for="react-js">React Js</label>
               </div>
             </div>
             <div class="d-flex flex-column gap-3 justify-content-end">
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="next-js" name="techno" value="nextJs" />
+                <input class="shadow form-check-input" type="checkbox" id="next-js" name="techno" value="nextJs" {{ range $index, $data := .ProjectDetail.Technologies }}{{ if (eq $data "nextJs" ) }} checked {{end}}{{end}} />
                 <label class="form-label" for="next-js">Next Js</label>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <input class="shadow form-check-input" type="checkbox" id="type-script" name="techno" value="typeScript" />
+                <input class="shadow form-check-input" type="checkbox" id="type-script" name="techno" value="typeScript" {{ range $index, $data := .ProjectDetail.Technologies }}{{ if (eq $data "typeScript" ) }} checked {{end}}{{end}}/>
                 <label class="form-label" for="type-script">TypeScript</label>
               </div>
             </div>
