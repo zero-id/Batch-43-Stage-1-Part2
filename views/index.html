@@ -14,6 +14,47 @@
   </head>
   <body>
     <section>
+      <nav class="navbar navbar-expand-lg d-flex justify-content-between p-3 fixed-top shadow-sm px-5">
+        <div class="">
+          <ul class="navbar-nav d-flex gap-4 align-items-center">
+            <li>
+              <img width="50px" class="navbar-brand" src="../public/assets/img/DW.png" />
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active fw-bold" aria-current="page" href="/home">Home</a>
+            </li>
+            {{if .Data.IsLogin}}
+            <li class="nav-item">
+              <a class="nav-link" href="/addMyProject">Add Project</a>
+            </li>
+            {{end}}
+          </ul>
+        </div>
+        <div class="">
+          <ul class="navbar-nav d-flex gap-4 align-items-center">
+            {{if .Data.IsLogin}}
+            <li class="nav-item">
+              <a href="#" class="nav-link" style="margin-right: 20px">Hello, {{.Data.UserName}} </a>
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="nav-link list-active" style="margin-right: 20px">Logout</a>
+            </li>
+            {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            {{end}}
+            <li>
+              <a class="btn btn-dark px-3 py-1" href="/contact">Contact Me</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+    <!-- <section>
       <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
         <div class="nav-left">
           <ul class="list-unstyled d-flex align-items-center gap-4">
@@ -27,12 +68,12 @@
           <a href="/contact" class="text-decoration-none text-white">Contact Me</a>
         </div>
       </nav>
-    </section>
+    </section> -->
 
     <section>
       <div class="container d-flex p-5 rounded-3 gap-5 shadow-lg" style="margin: 100px auto !important">
-        <div class="row">
-          <div class="col-8 d-flex flex-column p-3">
+        <div class="row" style="justify-content: center">
+          <div class="col-8 d-flex flex-column p-3 w-max">
             <div class="py-5">
               <h3 class="pb-4 fw-bold">Hi Welcome to my hut</h3>
               <p style="text-align: justify">
@@ -43,15 +84,15 @@
               </p>
             </div>
 
-            <div class="d-flex align-items-center gap-4 mb-5">
+            <div class="d-flex align-items-center gap-4 mb-5" style="flex-wrap: wrap">
               <a href="https://t.me/abdullatiff_official" target="_blank" class="text-decoration-none text-white bg-black px-4 py-2 rounded-4 me-4">contact</a>
               <div class="d-flex gap-3">
                 <p class="fs-5">download CV</p>
-                <a href="#"><img width="25" src="assets/img/icon download.png" alt="" /></a>
+                <a href="#"><img width="25" src="../public/assets/img/icon download.png" alt="" /></a>
               </div>
             </div>
 
-            <div class="mt-4 d-flex gap-4">
+            <div class="mt-4 d-flex gap-4" style="flex-wrap: wrap">
               <a href="https://www.linkedin.com/in/abdul-latif-faturahman-4045b7172/" target="_blank"><img width="45" src="../public/assets/img/ln.png" alt="" /></a>
               <a href="https://www.instagram.com/abdullatiff_official/" target="_blank"><img src="../public/assets/img/ig.png" width="45" alt="" /></a>
               <a href="https://www.facebook.com/cclatief" target="_blank"><img src="../public/assets/img/fb.png" width="45" alt="" /></a>
@@ -77,7 +118,7 @@
         <h1 class="fs-1 fw-semibold text-center p-5">MY PROJECT</h1>
         <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start gap-2">
           {{range $index, $data := .Projects}}
-          <div class="w-25 h-75 d-flex flex-column p-3 gap-3 flex-nowarp shadow-lg rounded-3">
+          <div class="h-75 d-flex flex-column p-3 gap-3 flex-nowarp shadow-lg rounded-3" style="width: 350px !important">
             <div class="">
               <img class="w-100 h-100 rounded-3" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
             </div>
@@ -94,10 +135,12 @@
               <img style="width: 40px" class="" src="../public/assets/img/{{$data}}.png" />
               {{end}}
             </div>
+            {{if $.Data.IsLogin}}
             <div class="d-flex container gap-2">
               <a class="text-decoration-none text-white btn btn-dark w-50" href="/edit-project/{{$data.Id}}">edit</a>
               <a class="btn btn-dark w-50 text-decoration-none text-white" href="/delet-project/{{$data.Id}}">delete</a>
             </div>
+            {{end}}
           </div>
           {{end}}
         </div>

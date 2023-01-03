@@ -13,6 +13,46 @@
   </head>
   <body>
     <section>
+      <nav class="navbar navbar-expand-lg d-flex justify-content-between p-3 fixed-top shadow-sm px-5">
+        <div class="">
+          <ul class="navbar-nav d-flex gap-4 align-items-center">
+            <li>
+              <img width="50px" class="navbar-brand" src="../public/assets/img/DW.png" />
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/home">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/addMyProject">Add Project</a>
+            </li>
+          </ul>
+        </div>
+        <div class="">
+          <ul class="navbar-nav d-flex gap-4 align-items-center">
+            {{if .Data.IsLogin}}
+            <li class="nav-item">
+              <a href="#" class="nav-link" style="margin-right: 20px">Hello, {{.Data.UserName}} </a>
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="nav-link list-active" style="margin-right: 20px">Logout</a>
+            </li>
+            {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            {{end}}
+            <li>
+              <a class="btn btn-dark px-3 py-1" href="/contact">Contact Me</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+    <!-- <section>
       <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
         <div class="nav-left">
           <ul class="list-unstyled d-flex align-items-center gap-4">
@@ -26,7 +66,7 @@
           <a href="/contact" class="text-decoration-none text-white">Contact Me</a>
         </div>
       </nav>
-    </section>
+    </section> -->
 
     <section>
       <div class="container d-flex flex-column gap-5" style="margin: 100px auto !important">
