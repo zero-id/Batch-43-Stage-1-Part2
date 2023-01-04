@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/home">Home</a>
             </li>
-            {{if .Data.IsLogin}}
+            {{if .IsLogin}}
             <li class="nav-item">
               <a class="nav-link" href="/addMyProject">Add Project</a>
             </li>
@@ -53,6 +53,9 @@
         </div>
       </nav>
     </section>
+    {{if .FlashData}}
+    <div class="alert alert-success p-2 fixed-top" style="margin-top: 65px !important" role="alert">{{.FlashData}}</div>
+    {{end}}
 
     <!-- <section>
       <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
@@ -77,12 +80,12 @@
         <form action="/login" method="POST" class="w-50 d-flex m-auto flex-column gap-3 mb-5">
           <h2 class="fw-bold text-center mb-5">REGISTER YOUR ACCOUNT</h2>
           <div class="">
-            <label class="fw-semibold form-label" for="project-name">Email</label>
-            <input name="email" class="form-control p-2 shadow" type="email" id="project-name" value="" />
+            <label class="fw-semibold form-label" for="input-email">Email</label>
+            <input name="email" class="form-control p-2 shadow" type="email" id="input-email" value="" />
           </div>
           <div class="">
-            <label class="fw-semibold form-label" for="project-name">Password</label>
-            <input name="password" class="form-control p-2 shadow" type="password" id="project-name" value="" />
+            <label class="fw-semibold form-label" for="input-password">Password</label>
+            <input name="password" class="form-control p-2 shadow" type="password" id="input-password" value="" />
           </div>
 
           <div class="d-flex justify-content-end">

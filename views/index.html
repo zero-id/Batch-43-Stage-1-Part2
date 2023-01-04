@@ -54,21 +54,9 @@
         </div>
       </nav>
     </section>
-    <!-- <section>
-      <nav class="navbar navbar-expand-lg d-flex justify-content-between p-2 px-5 fixed-top shadow-sm">
-        <div class="nav-left">
-          <ul class="list-unstyled d-flex align-items-center gap-4">
-            <li><img src="../public/assets/img/DW.png" width="50px" alt="" /></li>
-
-            <li class="home"><a href="/home" class="text-decoration-none text-black fw-bold">Home</a></li>
-            <li><a href="/addMyProject" class="text-decoration-none text-black">Add Project</a></li>
-          </ul>
-        </div>
-        <div class="bg-black px-4 py-2 rounded">
-          <a href="/contact" class="text-decoration-none text-white">Contact Me</a>
-        </div>
-      </nav>
-    </section> -->
+    {{if .Data.FlashData}}
+    <div class="alert alert-success p-2 fixed-top" style="margin-top: 65px !important" role="alert">{{.Data.FlashData}}</div>
+    {{end}}
 
     <section>
       <div class="container d-flex p-5 rounded-3 gap-5 shadow-lg" style="margin: 100px auto !important">

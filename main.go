@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"personal-web/connection"
 	"strconv"
+	"strings"
 	"text/template"
 	"time"
 
@@ -15,9 +16,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var Data = map[string]interface{}{
-	"Title": "Personal Web",
-	"IsLogin": true,
+type MetaData struct {
+	Title string
+	IsLogin bool
+	UserName string
+	FlashData string
+}
+
+var Data = MetaData{
+	Title: "Personal Web",
 }
 
 type Project struct {
@@ -29,6 +36,7 @@ type Project struct {
 	Technologies []string
 	Duration     string
 	// Image string
+	IsLogin bool
 }
 
 type User struct {
@@ -83,10 +91,10 @@ func home(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "SESSION_ID")
 
 	if session.Values["IsLogin"] != true {
-		Data["IsLogin"] = false
+		Data.IsLogin = false
 	} else {
-		Data["IsLogin"] = session.Values["IsLogin"].(bool)
-		Data["UserName"] = session.Values["Name"].(string)
+		Data.IsLogin = session.Values["IsLogin"].(bool)
+		Data.UserName = session.Values["Name"].(string)
 	}
 
 	rows, _ := connection.Conn.Query(context.Background(), "SELECT * FROM tb_project")
@@ -102,8 +110,26 @@ func home(w http.ResponseWriter, r *http.Request) {
 		}
 		each.Duration = selisihDate(each.Start_date, each.End_date)
 
+		if session.Values["IsLogin"] != true {
+			each.IsLogin = false
+		} else {
+			each.IsLogin = session.Values["IsLogin"].(bool)
+		}
+
 		result = append(result, each)
 	}
+
+	fm := session.Flashes("message")
+
+	var flashes []string
+	if len(fm) > 0 {
+		session.Save(r, w)
+		for _, fl := range fm {
+			flashes = append(flashes, fl.(string))
+		}
+	}
+
+	Data.FlashData = strings.Join(flashes, "")
 
 	respData := map[string]interface{}{
 		"Data":     Data,
@@ -149,6 +175,16 @@ func contacMe(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("message : " + err.Error()))
 		return
+	}
+
+	var store = sessions.NewCookieStore([]byte("SESSION_ID"))
+	session, _ := store.Get(r, "SESSION_ID")
+
+	if session.Values["IsLogin"] != true {
+		Data.IsLogin = false
+	} else {
+		Data.IsLogin = session.Values["IsLogin"].(bool)
+		Data.UserName = session.Values["Name"].(string)
 	}
 
 	respData := map[string]interface{}{
@@ -235,7 +271,6 @@ func addProject(w http.ResponseWriter, r *http.Request) {
     }
 
 	http.Redirect(w, r, "/home", http.StatusMovedPermanently)
-
 }
 
 func deletProject(w http.ResponseWriter, r *http.Request) {
@@ -344,6 +379,12 @@ func register (w http.ResponseWriter, r *http.Request) {
         return
     }
 
+	var store = sessions.NewCookieStore([]byte("SESSION_ID"))
+	session, _ := store.Get(r, "SESSION_ID")
+	session.AddFlash("Successfully register!", "message")
+	session.Save(r, w)
+
+
 	http.Redirect(w, r, "/login", http.StatusMovedPermanently)
 }
 
@@ -356,11 +397,33 @@ func formLogin (w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("message : " + err.Error()))
 	}
 
+	//cookie/ sebuah sesi yang berupa cookie = storing data/ menyompan data
+
+	var store = sessions.NewCookieStore([]byte("SESSION_ID"))
+	session, _ := store.Get(r, "SESSION_ID") 
+
+	fm := session.Flashes("message")
+
+	var flashes []string
+	if len(fm) > 0 {
+		session.Save(r, w)
+		for _, fl := range fm {
+			flashes = append(flashes, fl.(string))
+		}
+	}
+
+	Data.FlashData = strings.Join(flashes, "")
+
 	w.WriteHeader(http.StatusOK)
 	tmpl.Execute(w, Data)
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
+	
+	var store = sessions.NewCookieStore([]byte("SESSION_ID"))
+    session, _ := store.Get(r, "SESSION_ID")
+
+
     err := r.ParseForm()
     if err != nil {
         log.Fatal(err)
@@ -371,7 +434,12 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 	user := User{}
 
-	err = connection.Conn.QueryRow(context.Background(), "SELECT * FROM tb_user WHERE email=$1", email).Scan(&user.Id, &user.Name ,&user.Email, &user.Password)
+	err = connection.Conn.QueryRow(context.Background(), "SELECT * FROM tb_user WHERE email=$1", email).Scan(
+		&user.Id, 
+		&user.Name ,
+		&user.Email, 
+		&user.Password)
+
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("message : " + err.Error()))
@@ -385,14 +453,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var store = sessions.NewCookieStore([]byte("SESSION_ID"))
-    session, _ := store.Get(r, "SESSION_ID")
-
 	session.Values["IsLogin"] = true
 	session.Values["Name"] = user.Name
 	session.Options.MaxAge = 10800
 
-    session.AddFlash("Login success", "message")
+    session.AddFlash("Login success", "message") 
     session.Save(r, w)
 
     http.Redirect(w, r, "/home", http.StatusMovedPermanently)
@@ -406,5 +471,5 @@ func logout (w http.ResponseWriter, r *http.Request) {
 
     session.Save(r, w)
 
-    http.Redirect(w, r, "/home", http.StatusMovedPermanently)
+    http.Redirect(w, r, "/home", http.StatusSeeOther)
 }

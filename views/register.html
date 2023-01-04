@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/home">Home</a>
             </li>
-            {{if .Data.IsLogin}}
+            {{if .IsLogin}}
             <li class="nav-item">
               <a class="nav-link" href="/addMyProject">Add Project</a>
             </li>
@@ -77,16 +77,16 @@
         <form action="/register" method="POST" class="w-50 d-flex m-auto flex-column gap-3 mb-5">
           <h2 class="fw-bold text-center mb-5">REGISTER YOUR ACCOUNT</h2>
           <div class="">
-            <label class="fw-semibold form-label" for="project-name">Name</label>
-            <input name="name" class="form-control p-2 shadow" type="text" id="project-name" value="" />
+            <label class="fw-semibold form-label" for="input-name">Name</label>
+            <input name="name" class="form-control p-2 shadow" type="text" id="input-name" value="" />
           </div>
           <div class="">
-            <label class="fw-semibold form-label" for="project-name">Email</label>
-            <input name="email" class="form-control p-2 shadow" type="email" id="project-name" value="" />
+            <label class="fw-semibold form-label" for="input-email">Email</label>
+            <input name="email" class="form-control p-2 shadow" type="email" id="input-email" value="" />
           </div>
           <div class="">
-            <label class="fw-semibold form-label" for="project-name"> Password</label>
-            <input name="password" class="form-control p-2 shadow" type="password" id="project-name" value="" />
+            <label class="fw-semibold form-label" for="input-password-name"> Password</label>
+            <input name="password" class="form-control p-2 shadow" type="password" id="input-password" value="" />
           </div>
 
           <div class="d-flex justify-content-end">
