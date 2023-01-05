@@ -54,8 +54,16 @@
         </div>
       </nav>
     </section>
+
     {{if .Data.FlashData}}
-    <div class="alert alert-success p-2 fixed-top" style="margin-top: 65px !important" role="alert">{{.Data.FlashData}}</div>
+    <!-- <div class="alert alert-success alert-dismissible fade show p-3" style="margin-top: 70px !important" role="alert">
+      
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> -->
+    <div class="alert alert-success alert-dismissible fade show p-3" style="margin-top: 70px !important" role="alert">
+      {{.Data.FlashData}}
+      <button type="button" class="btn-close m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     {{end}}
 
     <section>
@@ -104,14 +112,14 @@
     <section>
       <div class="bg-white rounded-4 d-flex flex-column">
         <h1 class="fs-1 fw-semibold text-center p-5">MY PROJECT</h1>
-        <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start gap-2">
+        <div id="containerList" class="d-flex flex-warp justify-content-center m-4 text-start gap-5" style="flex-wrap: wrap !important">
           {{range $index, $data := .Projects}}
-          <div class="h-75 d-flex flex-column p-3 gap-3 flex-nowarp shadow-lg rounded-3" style="width: 350px !important">
+          <div class="h-75 d-flex flex-column p-3 gap-3 shadow-lg rounded-3" style="width: 350px !important">
             <div class="">
-              <img class="w-100 h-100 rounded-3" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGRldmVsb3BlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
+              <img class="rounded-3" src="/uploads/{{$data.Image}}" style="width: 100%; height: 200px; border-radius: 15px; object-fit: cover" alt="" />
             </div>
             <div class="">
-              <h5><a href="/project-detail/{{$data.Id}}" class="text-black fw-bold">{{$data.Project_name}}</a></h5>
+              <h5><a href="/project-detail/{{$data.Id}}" class="text-black fw-bold text-decoration-none">{{$data.Project_name}}</a></h5>
               <p class="fs-6 text-secondary">Durasi: {{$data.Duration}}</p>
             </div>
             <div style="height: 100px" class="overflow-hidden">

@@ -82,7 +82,7 @@
 
     <section>
       <div class="container-fluid" style="margin: 100px auto !important">
-        <form action="/addMyProject" method="POST" class="w-50 d-flex m-auto flex-column gap-3 mb-5">
+        <form action="/addMyProject" method="POST" enctype="multipart/form-data" class="w-50 d-flex m-auto flex-column gap-3 mb-5">
           <h1 class="fw-bold text-center mb-5">ADD MY PROJECT</h1>
           <div class="">
             <label class="fw-semibold form-label" for="project-name">Project Name</label>
@@ -133,7 +133,7 @@
           <div>
             <label for="img" class="fw-semibold form-label">Upload Image</label>
             <div class="upload">
-              <input class="shadow form-control p-2" type="file" id="img" />
+              <input class="shadow form-control p-2" name="input-image" type="file" id="img" />
             </div>
           </div>
           <div class="d-flex justify-content-end">
