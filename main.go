@@ -80,7 +80,6 @@ func main() {
 	http.ListenAndServe("localhost:8080", route)
 }
 
-
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
@@ -104,7 +103,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		for rows.Next() { //next dari pgx dan berfunsi untuk dia akan membaca apa dari connection ketika sudah berhasil menjalankan query, berarti next akan membaca valuenya yang di kirimkan database
+		for rows.Next() { //next dari pgx dan berfunsi untuk dia akan membaca apa dari connection ketika sudah berhasil menjalankan query
 			var each = Project{}
 
 			var err = rows.Scan(&each.Id, &each.Project_name, &each.Start_date, &each.End_date, &each.Description, &each.Technologies, &each.Image)
@@ -113,12 +112,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			each.Duration = selisihDate(each.Start_date, each.End_date)
-
-			// if session.Values["IsLogin"] != true {
-			// 	each.IsLogin = false
-			// } else {
-			// 	each.IsLogin = session.Values["IsLogin"].(bool)
-			// }
 
 			result = append(result, each)
 		}
@@ -144,12 +137,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 			}
 
 			each.Duration = selisihDate(each.Start_date, each.End_date)
-
-			// if session.Values["IsLogin"] != true {
-			// 	each.IsLogin = false
-			// } else {
-			// 	each.IsLogin = session.Values["IsLogin"].(bool)
-			// }
 
 			result = append(result, each)
 		}
@@ -481,9 +468,9 @@ func formLogin (w http.ResponseWriter, r *http.Request) {
 	var store = sessions.NewCookieStore([]byte("SESSION_ID"))
 	session, _ := store.Get(r, "SESSION_ID") 
 
-	fm := session.Flashes("message")
+	fm := session.Flashes("message")  //untuk mengambil flash message yang di simpan di session id dengan nama message
 
-	var flashes []string
+	var flashes []string 
 	if len(fm) > 0 {
 		session.Save(r, w)
 		for _, fl := range fm {
